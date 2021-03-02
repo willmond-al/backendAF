@@ -3,7 +3,8 @@ const db = require('../data/db-config')
 module.exports = {
 find,
 findById,
-add
+add,
+remove
 }
 
 function find(){
@@ -20,5 +21,10 @@ function findById(id){
 async function add(cl){
     const [id] = await db("classes").insert(cl, "id")
     return findById(id)
-    
+}
+
+function remove(id){
+    return db("classes")
+    .where({id})
+    .del()
 }

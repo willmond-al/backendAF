@@ -3,7 +3,8 @@ const db = require('../data/db-config')
 module.exports = {
 find,
 findById,
-add
+add,
+remove
 }
 
 function find(){
@@ -25,3 +26,8 @@ async function add(cl){
 //     return db("clients")
 //     .insert(clientData)
 // }
+function remove(id){
+    return db("clients")
+    .where({id})
+    .del()
+}

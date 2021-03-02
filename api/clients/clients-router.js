@@ -21,4 +21,14 @@ router.post("/", (req, res)=>{
     })
 })
 
+router.delete('/:id', (req, res)=>{
+    Clients.remove(req.params.id)
+    .then(client => {
+        res.status(200).json({message: "client removed"})
+    })
+    .catch(err => {
+        res.status(500).json({message: "could not remove client"})
+    })
+})
+
 module.exports = router
