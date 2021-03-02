@@ -1,14 +1,42 @@
 exports.up = async (knex) => {
   await knex.schema
-    .createTable('users', (users) => {
-      users.increments('user_id')
-      users.string('user_username', 200).notNullable()
-      users.string('user_password', 200).notNullable()
-      users.string('user_email', 320).notNullable()
-      users.timestamps(false, true)
+    .createTable("clients", tbl => {
+      tbl.increments()
+      tbl.string("username").notNullable().unique()
+      tbl.string("password").notNullable()
+    })
+    .createTable("instructors", tbl => {
+      tbl.increments()
+      tbl.string("username").notNullable().unique()
+      tbl.string("password").notNullable()
+    })
+    .createTable("classes", tbl => {
+        tbl.increments()
+        tbl.string("name").notNullable()
+        tbl.string("intensity")
+        tbl.string("time").notNullable()
+        tbl.string("duration").notNullable()
+        tbl.string("location").notNullable()
+        // tbl.integer("instructor")
+        // .unsigned()
+        // .references("instructors.id")
+        // .inTable("instructors")
+        // .onDelete("CASCADE")
+        // .onUpdate('CASCADE')
+        // tbl.integer("classMember")
+        // .unsigned()
+        // .references("clients.id")
+        // .inTable("clients")
+        // .onDelete("CASCADE")
+        // .onUpdate('CASCADE')
+  
     })
 }
 
 exports.down = async (knex) => {
-  await knex.schema.dropTableIfExists('users')
+  await knex.schema
+  .dropTableIfExists("classes")
+  .dropTableIfExists("instructors")
+  .dropTableIfExists("clients")
+  .dropTableIfExists('userw')
 }
