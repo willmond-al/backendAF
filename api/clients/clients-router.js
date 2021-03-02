@@ -9,4 +9,16 @@ router.get("/", (req, res)=>{
     .catch(err => res.send(err))
 })
 
+router.post("/", (req, res)=>{
+    const clientData = req.body
+    Clients.add(clientData)
+    .then(cl => {
+        res.status(201).json(cl)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({message: 'could not make client account'})
+    })
+})
+
 module.exports = router

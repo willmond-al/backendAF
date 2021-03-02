@@ -1,9 +1,24 @@
 const db = require('../data/db-config')
 
 module.exports = {
-find
+find,
+findById,
+add
 }
 
 function find(){
     return db("classes")
+}
+
+function findById(id){
+    return db("classes as cl")
+    .select("cl.id", "cl.name", "cl.time")
+    .where("cl.id", id)
+    .first()
+}
+
+async function add(cl){
+    const [id] = await db("classes").insert(cl, "id")
+    return findById(id)
+    
 }
