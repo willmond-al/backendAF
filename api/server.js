@@ -13,4 +13,8 @@ server.use(cors())
 server.use('/api/clients', clientsRouter)
 server.use('/api/instructors', instRouter)
 server.use('/api/classes', classesRouter)
+
+server.get("/", (req, res)=>{
+    res.json({api: "up"})
+})
 module.exports = server
