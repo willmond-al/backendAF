@@ -1,13 +1,13 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return knex('classes').del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex('classes').insert([
+        {id: 1, name: 'Spin Class', time: "1400", duration: "60 hour", location: "Seattle"},
+        {id: 2, name: 'Weight Training', time: "1200", duration: "30 mins" , location: "Seattle"},
+        {id: 3, name: 'Water Aerobics', time: "1000", duration: "90 mins", location: "Seattle"}
       ]);
     });
 };
