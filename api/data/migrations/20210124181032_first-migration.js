@@ -9,6 +9,7 @@ exports.up = async (knex) => {
       tbl.increments()
       tbl.string("username").notNullable().unique()
       tbl.string("password").notNullable()
+      tbl.string("instructorcode")
     })
     .createTable("classes", tbl => {
         tbl.increments()

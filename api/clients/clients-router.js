@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Clients = require('./clients-model')
+const mw = require('../middleware/middlewares')
 
 router.get("/", (req, res)=>{
     Clients.find()
@@ -9,7 +10,7 @@ router.get("/", (req, res)=>{
     .catch(err => res.send(err))
 })
 
-router.post("/", (req, res)=>{
+router.post("/", mw.checkCredentials,(req, res)=>{
     const clientData = req.body
     Clients.add(clientData)
     .then(cl => {
@@ -21,7 +22,7 @@ router.post("/", (req, res)=>{
     })
 })
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', mw.checkClientId, (req, res)=>{
     Clients.remove(req.params.id)
     .then(client => {
         res.status(200).json({message: "client removed"})

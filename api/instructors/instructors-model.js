@@ -2,6 +2,7 @@ const db = require('../data/db-config')
 
 module.exports = {
 find,
+findBy,
 findById,
 add,
 remove
@@ -9,6 +10,12 @@ remove
 
 function find(){
     return db("instructors")
+}
+
+function findBy(filter) {
+    return db("instructors as i")
+    .select("i.id", "i.username", "i.password")
+    .where(filter).orderBy("id");
 }
 
 function findById(id){

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Classes = require('./classes-model')
+const mw = require('../middleware/middlewares')
 
 router.get("/", (req, res)=>{
     Classes.find()
@@ -9,7 +10,7 @@ router.get("/", (req, res)=>{
     .catch(err => res.send(err))
 })
 
-router.post("/", (req, res)=>{
+router.post("/", mw.checkClassInfo, (req, res)=>{
     const classData = req.body
     Classes.add(classData)
     .then(cl => {
@@ -21,7 +22,7 @@ router.post("/", (req, res)=>{
     })
 })
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', mw.checkClassId, (req, res)=>{
     Classes.remove(req.params.id)
     .then(inst => {
         res.status(200).json({message: "class removed"})

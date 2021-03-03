@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Instructors = require('./instructors-model')
+const mw = require('../middleware/middlewares')
 
 router.get("/", (req, res)=>{
     Instructors.find()
@@ -9,7 +10,7 @@ router.get("/", (req, res)=>{
     .catch(err => res.send(err))
 })
 
-router.post("/", (req, res)=>{
+router.post("/", mw.checkCredentials, mw.checkInstructorCode, (req, res)=>{
     const instData = req.body
     Instructors.add(instData)
     .then(inst => {
@@ -21,7 +22,7 @@ router.post("/", (req, res)=>{
     })
 })
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', mw.checkInstId, (req, res)=>{
     Instructors.remove(req.params.id)
     .then(inst => {
         res.status(200).json({message: "instructor removed"})
