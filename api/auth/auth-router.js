@@ -7,7 +7,7 @@ const mw = require('../middleware/middlewares')
 const Clients = require('../clients/clients-model')
 const Instructors = require('../instructors/instructors-model')
 
-router.post('/register/client', mw.checkCredentials, mw.checkClientNameExists, async(req, res)=>{
+router.post('/register/client', mw.checkCredentials, mw.checkClientNameExists, async (req, res)=>{
     try{
         const hash = bcryptjs.hashSync(req.body.password)
         const newClient = await Clients.add({username: req.body.username, password: hash})

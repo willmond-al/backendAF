@@ -1,6 +1,8 @@
 const Clients = require('../clients/clients-model')
 const Instructors = require('../instructors/instructors-model')
 const Classes = require('../classes/classes-model')
+const jwt = require('jsonwebtoken')
+const {jwtSecret} = require('../auth/secrets')
 
 const checkClientId = async(req, res, next)=>{
     const {id} = req.params
@@ -109,6 +111,22 @@ const checkClassInfo = (req, res, next) => {
     }
 }
 
+// module.exports = (req, res, next) => {
+//     const token = req.headers.authorization
+//     if(!token){
+//         res.status(401).json('not logged in!')
+//     }else{
+//         jwtSecret.verify(token, jwtSecret, (err, decoded)=>{
+//             if(err){
+//                 res.status(401).json('login invalid'+ err.message)
+//             }else{
+//                 req.decodedToken = decoded
+//                 next()
+//             }
+//         })
+//     }
+// }
+
 module.exports = {
     checkClientId,
     checkInstId,
@@ -117,6 +135,6 @@ module.exports = {
     checkClassInfo,
     checkInstructorCode,
     checkClientNameExists,
-    checkInstNameExists
+    checkInstNameExists,
 }
 

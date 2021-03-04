@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const Classes = require('./classes-model')
 const mw = require('../middleware/middlewares')
+const restricted = require('../auth/restricted')
 
-router.get("/", (req, res)=>{
+router.get("/", restricted,(req, res)=>{
     Classes.find()
     .then(classes  => {
         res.json(classes)
