@@ -97,15 +97,11 @@ const checkInstNameExists = async (req, res, next) => {
 }
 
 const checkClassInfo = (req, res, next) => {
-    const {name, time, duration, location} = req.body
-    if(!name){
-        res.status(400).json('class name required')
-    } else if(!time){
-        res.status(400).json('class time required')
-    } else if(!duration){
-        res.status(400).json('class duration required')
-    } else if(!location){
-        res.status(400).json('class location required')
+    const {name, time, duration, location, instructor} = req.body
+    if(!name||!time||!duration||!location){
+        res.status(400).json('class name, time, duration, location required')
+    } else if(!instructor){
+        res.status(400).json('not an instructor!')
     }else{
         next()
     }

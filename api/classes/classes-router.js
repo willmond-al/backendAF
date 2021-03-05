@@ -2,6 +2,9 @@ const router = require('express').Router()
 const Classes = require('./classes-model')
 const mw = require('../middleware/middlewares')
 const restricted = require('../auth/restricted')
+// const useParams = require('react-router-dom').useParams()
+
+
 
 router.get("/", restricted,(req, res)=>{
     Classes.find()
@@ -11,7 +14,7 @@ router.get("/", restricted,(req, res)=>{
     .catch(err => res.send(err))
 })
 
-router.post("/", mw.checkClassInfo, (req, res)=>{
+router.post("/:id", mw.checkClassInfo, restricted, (req, res)=>{
     const classData = req.body
     Classes.add(classData)
     .then(cl => {

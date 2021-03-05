@@ -1,4 +1,5 @@
 const db = require('../data/db-config')
+const useParams = require('react-router-dom')
 
 module.exports = {
 find,
@@ -19,6 +20,8 @@ function findById(id){
 }
 
 async function add(cl){
+    // const {idi} = useParams()
+    // cl.instructor = idi
     const [id] = await db("classes").insert(cl, "id")
     return findById(id)
 }
